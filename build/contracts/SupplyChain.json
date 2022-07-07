@@ -1,4 +1,4 @@
-{
+gh repo create{
   "contractName": "SupplyChain",
   "abi": [
     {

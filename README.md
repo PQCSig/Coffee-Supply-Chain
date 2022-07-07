@@ -1,7 +1,7 @@
 # Coffee-Supply-Chain
 
-This is DApp coffee supply chain solution to prove the authenticity of coffee using an Ethereum smart contract. This project involves using an Ethereum smart contract 
-for role based permissions in a supply chain flow between sellers and buyers at various stages. 
+This is DApp coffee supply chain solution to prove the authenticity of coffee using an Ethereum smart contract. This project demonstrates
+role based permissions in a supply chain flow between sellers and buyers at various stages- see code in /contracts. 
 
 
 ![activity](https://user-images.githubusercontent.com/67720949/177696085-bd69f935-1e28-47dc-b303-fb24c4ec6c09.png)

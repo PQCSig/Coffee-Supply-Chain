@@ -14,12 +14,17 @@ solid blockchain architecture with role based permissions in a supply chain flow
 
 ![Fairtradecoffee](https://user-images.githubusercontent.com/67720949/177696131-9d540509-cd40-455c-b50a-7560db0f0cfb.png)
 
+
+
+**Program Versions:
 **
-Program Versions:**
 
 Truffle v5.1.51 (core: 5.1.51)
+
 Solidity - 0.5.16 (solc-js)
+
 Node v16.15.1
+
 Web3.js v1.2.9
 
 

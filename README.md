@@ -14,8 +14,8 @@ solid blockchain architecture with role based permissions in a supply chain flow
 
 ![Fairtradecoffee](https://user-images.githubusercontent.com/67720949/177696131-9d540509-cd40-455c-b50a-7560db0f0cfb.png)
 
-
-Program Versions:
+**
+Program Versions:**
 
 Truffle v5.1.51 (core: 5.1.51)
 Solidity - 0.5.16 (solc-js)
@@ -23,8 +23,6 @@ Node v16.15.1
 Web3.js v1.2.9
 
 
-
-Libraries 
 
 Below are the dependencies in my packages.json file:
 
@@ -35,17 +33,15 @@ Below are the dependencies in my packages.json file:
   }
 
 
-Why I used each library:
+**Why I used each library:**
 
     
-truffle: truffle is development environment, testing framework and asset pipeline for blockchains using the Ethereum Virtual Machine (EVM), aiming to make life as a developer easier. 
-For example, I used truffle to deploy my smart contracts to the Rinkeby test network.
-truffle-assertions: used to test Ethereum smart contracts inside Truffle tests. I used assertion to test if contracts correctly emitted different events as expected.
-truffle-hdwallet-provider: HD Wallet-enabled Web3 provider. Use it to sign transactions for addresses derived from a 12-word mnemonic.
-It allowed me to connect with my Metamask wallet on the Rinkeby network to authentic my contracts to Rinkeby.
-web3: a collection of libraries that allow you to interact with a local or remote ethereum node using HTTP, IPC or WebSocket. It allows you to interact with the blockchain using the JavaScript API.
+**truffle**: truffle is development environment, testing framework and asset pipeline for blockchains using the Ethereum Virtual Machine (EVM), aiming to make life as a developer easier. For example, I used truffle to deploy my smart contracts to the Rinkeby test network.
+**truffle-assertions**: used to test Ethereum smart contracts inside Truffle tests. I used assertion to test if contracts correctly emitted different events as expected.
+**truffle-hdwallet-provider**: HD Wallet-enabled Web3 provider. Use it to sign transactions for addresses derived from a 12-word mnemonic. It allowed me to connect with my Metamask wallet on the Rinkeby network to authentic my contracts to Rinkeby.
+**web3**: a collection of libraries that allow you to interact with a local or remote ethereum node using HTTP, IPC or WebSocket. It allows you to interact with the blockchain using the JavaScript API.
 
-IPFS Write-up
+**IPFS Write-up**
 
 I did not use IPFS for this project.
 

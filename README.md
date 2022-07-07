@@ -37,9 +37,13 @@ Below are the dependencies in my packages.json file:
 
     
 **truffle**: truffle is development environment, testing framework and asset pipeline for blockchains using the Ethereum Virtual Machine (EVM), aiming to make life as a developer easier. For example, I used truffle to deploy my smart contracts to the Rinkeby test network.
+
 **truffle-assertions**: used to test Ethereum smart contracts inside Truffle tests. I used assertion to test if contracts correctly emitted different events as expected.
+
 **truffle-hdwallet-provider**: HD Wallet-enabled Web3 provider. Use it to sign transactions for addresses derived from a 12-word mnemonic. It allowed me to connect with my Metamask wallet on the Rinkeby network to authentic my contracts to Rinkeby.
+
 **web3**: a collection of libraries that allow you to interact with a local or remote ethereum node using HTTP, IPC or WebSocket. It allows you to interact with the blockchain using the JavaScript API.
+
 
 **IPFS Write-up**
 

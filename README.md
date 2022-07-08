@@ -16,8 +16,7 @@ solid blockchain architecture with role based permissions in a supply chain flow
 
 
 
-**Program Versions:
-**
+**Program Versions:**
 
 Truffle v5.1.51 (core: 5.1.51)
 
@@ -31,11 +30,13 @@ Web3.js v1.2.9
 
 Below are the dependencies in my packages.json file:
 
+```
 "dependencies": {
     "@truffle/hdwallet-provider": "^2.0.10",
     "truffle-assertions": "^0.9.2",
     "web3": "^0.20.7"
-  }
+  } 
+  ```
 
 
 **Why I used each library:**

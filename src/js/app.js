@@ -57,22 +57,18 @@ App = {
 
     initWeb3: async function () {
         /// Find or Inject Web3 Provider
-        /// Modern dapp browsers...
+        /// Modern dapp browsers (EIP-1193 / EIP-1102)...
         if (window.ethereum) {
             App.web3Provider = window.ethereum;
             try {
                 // Request account access
-                await window.ethereum.enable();
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
             } catch (error) {
                 // User denied account access...
                 console.error("User denied account access")
             }
         }
-        // Legacy dapp browsers...
-        else if (window.web3) {
-            App.web3Provider = window.web3.currentProvider;
-        }
-        // If no injected web3 instance is detected, fall back to Ganache
+        // If no injected provider is detected, fall back to a local Ganache node
         else {
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
         }
@@ -83,10 +79,10 @@ App = {
     },
 
     getMetaskAccountID: function () {
-        web3 = new Web3(App.web3Provider);
+        App.web3 = new Web3(App.web3Provider);
 
         // Retrieving accounts
-        web3.eth.getAccounts(function(err, res) {
+        App.web3.eth.getAccounts(function(err, res) {
             if (err) {
                 console.log('Error:',err);
                 return;
@@ -218,9 +214,9 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const productPrice = web3.toWei(1, "ether");
+            const productPrice = App.web3.utils.toWei(App.productPrice || "0", "ether");
             console.log('productPrice',productPrice);
-            return instance.sellItem(App.upc, App.productPrice, {from: App.metamaskAccountID});
+            return instance.sellItem(App.upc, productPrice, {from: App.metamaskAccountID});
         }).then(function(result) {
             $("#ftc-item").text(result);
             console.log('sellItem',result);
@@ -234,7 +230,7 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const walletValue = web3.toWei(3, "ether");
+            const walletValue = App.web3.utils.toWei(3, "ether");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);
@@ -328,8 +324,12 @@ App = {
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
         var events = instance.allEvents(function(err, log){
-          if (!err)
-            $("#ftc-events").append('<li>' + log.event + ' - ' + log.transactionHash + '</li>');
+          if (!err) {
+            // Build DOM nodes with textContent — never interpolate values into HTML strings
+            var li = document.createElement('li');
+            li.textContent = log.event + ' - ' + log.transactionHash;
+            document.getElementById('ftc-events').appendChild(li);
+          }
         });
         }).catch(function(err) {
           console.log(err.message);

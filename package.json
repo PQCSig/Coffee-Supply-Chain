@@ -1,21 +1,37 @@
 {
   "name": "supply-chain-E",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "Fair Trade Coffee supply chain DApp (Ethereum smart contracts + lite-server DApp UI)",
+  "main": "index.html",
   "scripts": {
     "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "truffle compile",
+    "compile": "truffle compile",
+    "test": "truffle test",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "audit": "npm audit --omit=dev",
+    "security:check": "node scripts/audit-with-exceptions.mjs --audit-level=high",
+    "outdated": "npm outdated"
   },
-  "keywords": [],
-  "author": "pk <pkrasam@gmail.com> (https://ipfs.infura.io/ipfs/QmSXiR9Khm3yo1J67nUopvVBxFJ8YGN2fUGZ34Etr3m92x/)",
+  "keywords": [
+    "ethereum",
+    "supply-chain",
+    "solidity",
+    "dapp"
+  ],
+  "author": "pk <pkrasam@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
-    "lite-server": "^2.6.1"
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "lite-server": "^2.6.1",
+    "solhint": "^3.6.2",
+    "truffle": "^5.11.5",
+    "truffle-assertions": "^0.9.2"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.0.10",
-    "truffle-assertions": "^0.9.2",
-    "web3": "^0.20.7"
+    "web3": "^1.10.4"
   }
 }

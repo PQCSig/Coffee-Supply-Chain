@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # Application dependencies — grouped minor/patch with a publish cooldown
+  # (delay adoption of fresh releases so compromised versions surface first;
+  # security updates are never delayed by cooldown)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 3
+      semver-major-days: 7
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    open-pull-requests-limit: 5
+
+  # Keep pinned GitHub Action SHAs current (security-gate workflow)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

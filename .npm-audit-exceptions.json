@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "description": "Accepted-risk ledger for advisories with no compatible fix. Schema per security/_template_redteam_workflow.md.",
+    "description": "Accepted-risk ledger for advisories with no compatible fix. Schema in scripts/audit-with-exceptions.mjs.",
     "policy": "A gate failure on any advisory >= audit-level absent from this ledger, or on any entry past nextReviewDate, is a hard fail. Renewal requires re-triage.",
     "generated": "2026-11-04",
     "generator": "npm audit --omit=dev (lockfile v3, npm 11)",

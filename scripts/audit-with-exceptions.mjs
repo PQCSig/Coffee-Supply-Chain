@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // audit-with-exceptions.mjs — exceptions-aware `npm audit` merge gate.
 //
-// Ported (minimal form) from the red-team workflow: security/_template_redteam_workflow.md
+// The accepted-risk ledger design, committed in minimal form. The full red-team
+// workflow (scope → triage → exploit → verify) is maintainer-local by policy:
+// security/engagements/redteam_workflow.md is gitignored and never committed.
 // Semantics:
 //   exit 0  — clean, or every finding is covered by a valid, unexpired ledger entry
 //   exit 1  — an unhandled advisory at or above the audit level, an expired
@@ -113,7 +115,7 @@ for (const [pkg, v] of Object.entries(findings)) {
 }
 
 if (pendingApproval > 0) {
-  console.warn(`WARNING: ${pendingApproval} ledger entry/entries carry "PENDING" approval — maintainer sign-off required (see security/_template_redteam_workflow.md)`);
+  console.warn(`WARNING: ${pendingApproval} ledger entry/entries carry "PENDING" approval — maintainer sign-off required (see .npm-audit-exceptions.json policy header)`);
 }
 
 const meta = report.metadata?.vulnerabilities ?? {};

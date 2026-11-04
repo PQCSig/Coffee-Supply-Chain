@@ -1,6 +1,6 @@
 # Engagement — `<YYYY-MM-DD>` `<short-name>`
 
-One file per cycle: monthly sprint or quarterly engagement, named `YYYY-MM-DD-<name>.md`. This template mirrors the phases in [the workflow](../red-team-workflow.md) — fill it as you go, not retroactively. Everything here is committed, so evidence is **redacted**: request shapes yes, working payloads no (see "What never gets committed").
+One file per cycle: monthly sprint or quarterly engagement, named `YYYY-MM-DD-<name>.md`. This template mirrors the phases in the red-team workflow (`redteam_workflow.md`, maintainer-local) — fill it as you go, not retroactively. Everything here is committed, so evidence is **redacted**: request shapes yes, working payloads no (see "What never gets committed").
 
 - **Cadence**: monthly sprint / quarterly engagement
 - **Operator**:
@@ -72,4 +72,4 @@ Findings that could not be exploited, with the reasoning. A downgrade is data, n
 
 ## Scope deltas & feed forward
 
-New routes, deps, or secrets boundaries discovered mid-cycle; anything that breached SLA gets a named cause and enters the Build Queue in `../red-team-workflow.md`.
+New routes, deps, or secrets boundaries discovered mid-cycle; anything that breached SLA gets a named cause and enters the Build Queue in the red-team workflow (`redteam_workflow.md`, maintainer-local).

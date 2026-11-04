@@ -47,7 +47,7 @@ jobs:
 
       # Merge gate policy: production advisories at high severity fail the build,
       # unless covered by an unexpired entry in .npm-audit-exceptions.json
-      # (the accepted-risk ledger — see security/_template_redteam_workflow.md)
+      # (the accepted-risk ledger — schema in scripts/audit-with-exceptions.mjs)
       - name: Dependency audit (exceptions-aware gate, production tree)
         run: npm run security:check
 

@@ -27,7 +27,7 @@ solid blockchain architecture with role based permissions in a supply chain flow
 
 ## What's new — November 2026 security overhaul
 
-First full security review since 2022. Both sides of the discipline are now in the repo — defensive hardening plus an offensive red-team pipeline (**scan → triage → exploit → remediate → verify → report**), defined in full and exercised once end-to-end by a recorded engagement. The exploit phase was analytical: no live system is deployed to attack.
+First full security review since 2022. Both sides of the discipline are now in the repo — defensive hardening plus an offensive red-team pipeline (**scan → triage → exploit → remediate → verify → report**), exercised once end-to-end by a recorded engagement. The exploit phase was analytical: no live system is deployed to attack.
 
 **Defensive security**
 - Four critical smart-contract vulnerabilities fixed — sale-price bypass (`paidEnough` compared against the UPC instead of the price), sale proceeds misrouted to the buyer instead of the farmer, unauthenticated/hijackable item harvesting, and a payable constructor that permanently locked ETH — each pinned by a regression test that fails against the old code
@@ -36,11 +36,11 @@ First full security review since 2022. Both sides of the discipline are now in t
 - Dependabot updates with a publish cooldown; secrets removed from source (env vars + gitignored `.secret`); browser bundle hardened (CSP, SRI-pinned jQuery, DOM-safe rendering)
 
 **Offensive security (red team)**
-- An end-to-end red teaming pipeline — **scan to remediation** — defined in [`security/_template_redteam_workflow.md`](security/_template_redteam_workflow.md) (scope → scan → triage → exploit → remediate → verify → report, with SLA tiers and an accepted-risk ledger)
+- An end-to-end red teaming pipeline — **scan to remediation** — (scope → scan → triage → exploit → remediate → verify → report, with SLA tiers and an accepted-risk ledger). The offensive playbook itself is **maintainer-local by policy** — exploit methodology is working intelligence, not committed policy (see `security/engagements/insights/2026-11-04-commit-policy-and-anti-patterns.md`); the committed pieces are the CI gate, the accepted-risk ledger, and the engagement records under `security/engagements/`
 - First engagement executed and recorded: [`security/engagements/2026-11-04-baseline.md`](security/engagements/2026-11-04-baseline.md) — 12 findings triaged by exploitability: 11 fixed, 1 unfixable advisory chain accepted with a 90-day review clock
 - The purple-team gate: a finding is closed only when the CI gate or a regression test proves it closed
 - **`red-team-dast.yml` deliberately does not exist yet**: this DApp ships a static page — no server routes, no server-side auth, no session layer — so there is no rendered surface for DAST to exercise; the automatable checks that do apply (dependency audit, secret scan, static analysis) already run in the CI gate
-- The same file becomes **optional but high-value the moment a backend lands**: when server routes or server-side authentication appear, add the ZAP passive baseline (per [`security/_template_redteam_workflow.md`](security/_template_redteam_workflow.md)) before the first route ships — it is the only tool class here that tests the *running* surface for header, CORS/cookie, and auth-bypass defects that code review and the current gate cannot see; the SSVC triage script and SLA aging reports ride the same build queue
+- DAST becomes **optional but high-value the moment a backend lands**: when server routes or server-side authentication appear, add the ZAP passive baseline before the first route ships — it is the only tool class here that tests the *running* surface for header, CORS/cookie, and auth-bypass defects that code review and the current gate cannot see; the SSVC triage script and SLA aging reports ride the same build queue
 
 **Program Versions:**
 
@@ -93,7 +93,7 @@ CI (`.github/workflows/security.yml`) compiles, lints, tests, audits the product
 
 ## Dependency & update policy
 
-Run `npm outdated` (or `npm run outdated`) to see drift. `Current`/`Wanted` gaps are handled automatically by Dependabot (minor/patch, cooldown-delayed); **`Latest` gaps on major versions are deliberate and triaged in the monthly sweep** (see `security/_template_redteam_workflow.md`, Phase 1 "Outdated drift") — never blind-bump a major.
+Run `npm outdated` (or `npm run outdated`) to see drift. `Current`/`Wanted` gaps are handled automatically by Dependabot (minor/patch, cooldown-delayed); **`Latest` gaps on major versions are deliberate and triaged in the monthly sweep** — never blind-bump a major.
 
 Current deliberate major drift, and why it stays:
 

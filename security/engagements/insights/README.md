@@ -13,9 +13,8 @@ the lesson is learned (engagement close or monthly sweep), not retroactively.
 ## What does not
 
 - Per-engagement findings and evidence — those go in `../YYYY-MM-DD-<name>.md`
-- Raw scan output, triage reports, enrichment caches — local-only by policy
-  (see the commit-policy insight below and `_template_redteam_workflow.md`,
-  "What never gets committed")
+- Raw scan output, triage reports, enrichment caches, and the offensive
+  playbook itself — local-only by policy (see the commit-policy insight below)
 
 ## Index
 

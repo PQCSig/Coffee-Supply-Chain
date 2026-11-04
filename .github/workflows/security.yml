@@ -1,0 +1,71 @@
+# Security gate + CI for the Coffee Supply Chain DApp.
+# Runs on every push and PR: compile, test, dependency audit, and a secret scan.
+# Posture per security/AGENTS.md:
+#   - permissions: {} at workflow level, least-privilege at job level
+#   - third-party actions pinned to full commit SHAs (impostor-commit protection)
+#   - persist-credentials: false on checkout
+#   - timeout-minutes cap on every job
+name: security-gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  security-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile contracts
+        run: npm run build
+
+      - name: Lint contracts
+        run: npm run lint
+
+      - name: Test contracts
+        run: npm test
+
+      # Merge gate policy: production advisories at high severity fail the build,
+      # unless covered by an unexpired entry in .npm-audit-exceptions.json
+      # (the accepted-risk ledger — see security/_template_redteam_workflow.md)
+      - name: Dependency audit (exceptions-aware gate, production tree)
+        run: npm run security:check
+
+      # Informational drift report — majors are triaged in the monthly sweep,
+      # not auto-bumped (see "Dependency & update policy" in README.md)
+      - name: Dependency drift report (informational)
+        run: npm outdated || true
+
+      # Secret scan: fail on obvious live credentials in tracked source.
+      # .secret (wallet mnemonic) is gitignored and must never appear in history.
+      - name: Secret scan
+        run: |
+          if grep -RInE \
+            -e '(infura\.io/v3/[0-9a-fA-F]{32})' \
+            -e '(AKIA[0-9A-Z]{16})' \
+            -e '(-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' \
+            -e '([0-9a-fA-F]{12}[a-zA-Z0-9]{4})[[:space:]]*([a-zA-Z]{3,}[[:space:]]+){11}[a-zA-Z]{3,}' \
+            --exclude-dir=node_modules --exclude-dir=.git . ; then
+            echo "::error::Potential secret detected in tracked source"
+            exit 1
+          fi
